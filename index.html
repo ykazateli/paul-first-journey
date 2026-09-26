@@ -159,7 +159,6 @@
             background: #43A047;
         }
 
-        /* Подпись при наведении */
         .city-label {
             position: absolute;
             transform: translate(-50%, -160%);
@@ -205,30 +204,33 @@
             max-height: 90vh;
             overflow-y: auto;
             border-radius: 32px;
-            padding: 35px 45px 30px 30px;
+            padding: 35px 50px 30px 30px;
             box-shadow: 0 30px 60px rgba(0,0,0,0.3);
             position: relative;
             border: 1px solid #e6dacb;
             text-align: left;
         }
 
+        /* ===== ИСПРАВЛЕННЫЙ КРЕСТИК ===== */
         .modal-content .close-btn {
             position: absolute;
-            top: 12px;
-            right: 12px;
-            font-size: 2.2rem;
+            top: 8px;
+            right: 8px;
+            font-size: 2rem;
             line-height: 1;
             color: #b48a62;
             cursor: pointer;
             background: none;
             border: none;
-            padding: 4px 8px;
+            padding: 6px 12px;
             transition: 0.2s;
             z-index: 10;
+            border-radius: 50%;
         }
 
         .modal-content .close-btn:hover {
             color: #7a5a3a;
+            background: #f4ede4;
             transform: scale(1.1);
         }
 
@@ -237,7 +239,7 @@
             font-weight: 700;
             color: #b48a62;
             margin-bottom: 6px;
-            padding-right: 30px;
+            padding-right: 40px;
         }
 
         .modal-content .modal-verse {
@@ -377,10 +379,11 @@
         @media (max-width: 600px) {
             .app-container { padding: 20px 15px; }
             .header h1 { font-size: 1.6rem; }
-            .city-point { width: 26px; height: 26px; font-size: 0.8rem; border-width: 2px; }
+            .city-point { width: 28px; height: 28px; font-size: 0.85rem; border-width: 2px; }
             .city-label { font-size: 0.7rem; padding: 3px 8px; }
-            .modal-content { padding: 25px 20px; }
-            .modal-content .modal-city { font-size: 1.3rem; }
+            .modal-content { padding: 30px 20px 25px 20px; }
+            .modal-content .close-btn { top: 5px; right: 5px; font-size: 1.8rem; padding: 5px 10px; }
+            .modal-content .modal-city { font-size: 1.3rem; padding-right: 35px; }
             .finish-box h2 { font-size: 1.5rem; }
             button { padding: 12px 20px; font-size: 1rem; max-width: 100%; }
         }
@@ -409,7 +412,7 @@
         <!-- ЭКРАН 2 -->
         <div id="screen2" class="screen">
             <div class="progress">
-                🏙️ Посещено городов: <span id="visitedCount">0</span> из 8
+                🏙️ Посещено городов: <span id="visitedCount">0</span> из 9
             </div>
 
             <div class="map-wrapper" id="mapWrapper">
@@ -465,64 +468,72 @@
         const CITIES = [
             {
                 name: "Антиохия Сирийская",
-                x: 87.45,
-                y: 44.91,
+                x: 92.00,
+                y: 47.33,
                 verse: "«Когда они служили Господу и постились, Дух Святой сказал: отделите Мне Варнаву и Савла на дело, к которому Я призвал их»",
                 text: "Церковь в Антиохии стала отправной точкой первого миссионерского путешествия. Здесь Павел и Варнава были посланы Святым Духом.",
                 ref: "Деяния 13:1-3"
             },
             {
                 name: "Селевкия",
-                x: 86.66,
-                y: 47.46,
+                x: 83.57,
+                y: 54.06,
                 verse: "«Савл и Варнава, посланные Духом Святым, пришли в Селевкию, а оттуда отплыли в Кипр»",
                 text: "Порт, откуда Павел и Варнава отправились на остров Кипр. Отсюда начался их морской путь.",
                 ref: "Деяния 13:4"
             },
             {
                 name: "Саламин",
-                x: 81.95,
-                y: 52.37,
+                x: 58.22,
+                y: 77.19,
                 verse: "«И, прибыв в Саламин, проповедовали слово Божие в синагогах иудейских; с ними был и Иоанн»",
                 text: "Первый город на Кипре, где они проповедовали. С ними был Иоанн Марк, который помогал им.",
                 ref: "Деяния 13:5"
             },
             {
                 name: "Паф",
-                x: 77.48,
-                y: 57.28,
+                x: 43.26,
+                y: 91.22,
                 verse: "«Пройдя весь остров до Пафа, нашли они некоторого волхва, лжепророка, иудеянина, именем Вариисуса... Проконсул, увидев это, уверовал»",
                 text: "Здесь произошла встреча с проконсулом Сергием Павлом, который уверовал, увидев силу Божью. Волхв Вариисус был наказан слепотой.",
                 ref: "Деяния 13:6-12"
             },
             {
                 name: "Пергия",
-                x: 72.22,
-                y: 44.91,
+                x: 17.78,
+                y: 49.88,
                 verse: "«Павел и бывшие с ним отплыли из Пафа и прибыли в Пергию, в Памфилии. Иоанн же, отделившись от них, возвратился в Иерусалим»",
                 text: "Здесь Иоанн Марк покинул их, вернувшись в Иерусалим. Это стало причиной разногласия между Павлом и Варнавой позже.",
                 ref: "Деяния 13:13"
             },
             {
                 name: "Антиохия Писидийская",
-                x: 70.38,
-                y: 40.44,
+                x: 14.52,
+                y: 17.14,
                 verse: "«И, выйдя из синагоги, язычники просили их говорить о том же в следующую субботу. В следующую субботу почти весь город собрался слушать слово Божие»",
                 text: "Павел произнёс здесь свою первую известную проповедь. Многие уверовали, но иудеи воздвигли гонение.",
                 ref: "Деяния 13:14-52"
             },
             {
+                name: "Икония",
+                x: 41.23,
+                y: 19.85,
+                verse: "«В Иконии они вошли вместе в иудейскую синагогу и говорили так, что уверовало великое множество иудеев и язычников»",
+                text: "Здесь многие уверовали, но противники воздвигли гонение, и Павлу с Варнавой пришлось бежать в Листру.",
+                ref: "Деяния 14:1-6"
+            },
+            {
                 name: "Листра",
-                x: 75.46,
-                y: 41.93,
+                x: 34.09,
+                y: 29.20,
                 verse: "«Он сказал громким голосом: тебе говорю во имя Господа Иисуса Христа: стань на ноги твои прямо. И он тотчас вскочил и стал ходить»",
                 text: "Здесь Павел исцелил хромого от рождения. Жители приняли их за богов, но позже чуть не убили Павла камнями.",
                 ref: "Деяния 14:8-19"
             },
             {
                 name: "Дервия",
-                x: 78.27,
-                y: 44.74,
+                x: 42.71,
+                y: 35.36,
                 verse: "«Утверждая души учеников, увещевая пребывать в вере и поучая, что многими скорбями надлежит нам войти в Царствие Божие»",
                 text: "Здесь Павел и Варнава укрепляли учеников, поставили пресвитеров и завершили своё путешествие, вернувшись в Антиохию.",
                 ref: "Деяния 14:20-23"
@@ -540,7 +551,7 @@
                 point.className = 'city-point' + (visited.includes(index) ? ' visited' : '');
                 point.style.left = city.x + '%';
                 point.style.top = city.y + '%';
-                point.textContent = index + 1; // Номер города
+                point.textContent = index + 1;
                 point.dataset.index = index;
                 point.addEventListener('click', () => openCity(index));
                 wrapper.appendChild(point);
